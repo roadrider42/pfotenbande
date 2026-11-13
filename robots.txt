@@ -1,0 +1,7 @@
+# Entwurf. Die Seite soll nicht gefunden werden, solange der Wortlaut nicht mit
+# dem Wicker-Bildungszentrum abgestimmt ist. Das Gegenstück steht als
+# <meta name="robots"> in jeder HTML-Datei: Das Element schützt die einzelne
+# Seite, diese Datei die ganze Auslieferung. Beides gehört zusammen und fällt
+# zusammen weg, wenn die Seite freigegeben ist.
+User-agent: *
+Disallow: /

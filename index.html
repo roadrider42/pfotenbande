@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  ERZEUGTE DATEI. Nicht von Hand aendern: Der Wortlaut steht in
+  loginseite-texte.md, das Gerüst in werkzeug/vorlage.html, gebaut wird mit
+  `python3 -I werkzeug/bauen.py`. Wer hier etwas aendert, verliert es beim
+  naechsten Bauen.
+
+  Aufbau und Schnitt nach der Seite der Büssemaker PLUS Akademie (Repo bplus,
+  index.html): Kopf mit zwei Wegen (anmelden, Zugang anfragen), Einstieg,
+  häufige Fragen, Fuß. Alles andere dieser Seite (Themen, Probeabschnitt, Für
+  wen, Warum aus dieser Hand, So läuft es) ist mit Absicht nicht übernommen:
+  einfachste Stufe, nur Eingangstür.
+
+  Keine Bilder, kein Logo, kein Skript, kein Formular, kein externer Aufruf,
+  kein Zählpixel. Die Schrift ist Inter, wenn sie installiert ist, sonst die
+  Systemschrift: ein Aufruf an einen Schriftdienst würde beim ersten Laden eine
+  Verbindung in die USA aufbauen.
+
+  FARBEN, beim Bauen nach WCAG berechnet (Kontrastverhältnis; verlangt sind 4,5):
+    text auf grund: 11,54  (Fließtext)
+    text auf hell: 10,72  (Fließtext im hellen Abschnitt)
+    stark auf grund: 14,89  (Überschriften)
+    leise auf grund: 5,49  (Absatz der Fehlerseite)
+    akzent auf grund: 6,15  (Links, Augenbraue, Rahmenknopf)
+    akzent auf hell: 5,72  (Links im hellen Abschnitt, Rahmenknopf beim Darüberfahren)
+    weiß auf akzent: 6,15  (Schrift im Vollknopf)
+    weiß auf akzent-dunkel: 8,46  (Vollknopf beim Darüberfahren)
+    weiß auf fuss: 14,89  (Schrift im Fuß)
+    fuss-link auf fuss: 11,82  (Links im Fuß)
+  Geändert werden die Farben nur im :root-Block der Vorlage; die Fehlerseite
+  übernimmt ihn.
+-->
+<meta name="robots" content="noindex, nofollow">
+<title>Pfotenbande · Lernbereich Natürlich Nahrung</title>
+<meta name="description" content="Kurze Lernkarten mit Fragen rund um die Ernährung des Hundes: vom Wolf zum Haushund, tierisches Protein, Zubereitung und Handwerk. Von der Pfotenbande.">
+<style>
+  :root {
+    --text:          #2f3b40;
+    --stark:         #0b2a3c;
+    --leise:         #5f6b70;
+    --akzent:        #2c6b69;
+    --akzent-dunkel: #1f5553;
+    --grund:         #ffffff;
+    --hell:          #fbf6ee;
+    --rand:          #e6d8c3;
+    --fuss:          #0b2a3c;
+    --fuss-link:     #f4e3c8;
+    --kupfer:        #c47a3a;
+    --creme:         #fbf6ee;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--grund);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
+  h1 { font-size: clamp(1.9rem, 5.6vw, 3rem); font-weight: 700; color: var(--stark); letter-spacing: -.015em; }
+  h2 { font-size: clamp(1.4rem, 4vw, 2.25rem); font-weight: 600; color: var(--stark); }
+  p  { margin: 0 0 1rem; }
+  a  { color: var(--akzent); }
+
+  .huelle { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
+  section { padding: clamp(3rem, 8vw, 7.5rem) 0; }
+  section.hell { background: var(--hell); }
+
+  header { background: var(--grund); border-bottom: 1px solid var(--rand); }
+  .kopf { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 72px; flex-wrap: wrap; padding-top: .5rem; padding-bottom: .5rem; }
+  .marke { font-weight: 700; font-size: 1.1rem; color: var(--stark); letter-spacing: .01em; }
+  .marke small {
+    display: block; font-size: .78rem; font-weight: 600; color: var(--akzent);
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .marke small i {
+    display: inline-block; width: .5rem; height: .5rem;
+    background: var(--akzent); margin-right: .45rem; vertical-align: .04em;
+  }
+
+  /* Schaltflaechen: Radius 6px, Mindesthoehe 48px, damit sie auf dem Telefon
+     zu treffen sind. Zwei Wege in der Kopfzeile: anmelden, wer schon dabei
+     ist; anfragen, wer noch nicht. */
+  .kopfknoepfe { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .knopf {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px; padding: .875rem 1.5rem;
+    border-radius: 6px; font-weight: 600; font-size: 1rem;
+    text-decoration: none; border: 2px solid transparent;
+    transition: background-color .15s, color .15s;
+  }
+  .knopf-voll { background: var(--akzent); color: #fff; }
+  .knopf-voll:hover { background: var(--akzent-dunkel); }
+  .knopf-rand { border-color: var(--akzent); color: var(--akzent); background: transparent; }
+  .knopf-rand:hover { background: var(--hell); }
+  a:focus-visible, summary:focus-visible { outline: 3px solid var(--akzent); outline-offset: 3px; }
+
+  .augenbraue {
+    display: inline-block; margin-bottom: 1.1rem;
+    font-size: .85rem; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--akzent);
+  }
+  .titel { max-width: 46rem; }
+  .titel .vorspann { font-size: clamp(1.05rem, 2.3vw, 1.2rem); }
+  .knopfreihe { display: flex; flex-wrap: wrap; gap: .875rem; margin-top: 2rem; }
+
+  .fragen { max-width: 46rem; }   /* gleiche Spalte wie der Einstieg, damit die linken Kanten fluchten */
+  details { border-bottom: 1px solid var(--rand); padding: .5rem 0; }
+  details:first-of-type { border-top: 1px solid var(--rand); }
+  details summary {
+    cursor: pointer; font-weight: 600; color: var(--stark); list-style: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    min-height: 48px;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: "+"; color: var(--akzent); font-weight: 700; font-size: 1.3rem; }
+  details[open] summary::after { content: "–"; }
+  details p { margin: .2rem 0 1rem; }
+
+  footer { background: var(--fuss); color: #fff; padding: 3rem 0; }
+  footer p { color: #fff; }
+  footer .traeger { max-width: 44rem; }
+  /* Links im Fuss hell auf dunkel (11,99:1); der Akzent waere hier unlesbar. */
+  footer a { color: var(--fuss-link); text-decoration: underline; }
+  .fussreihe { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; align-items: center; justify-content: space-between; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, .22); padding-top: 1rem; }
+  .fussreihe nav { display: flex; flex-wrap: wrap; gap: 0 1.4rem; }
+  .fussreihe nav a { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* Marke: Logo neben dem Namen */
+  .markezeile { display: flex; align-items: center; gap: .8rem; }
+  .logo { width: 56px; height: 56px; border-radius: 50%; display: block; }
+
+  /* Titel mit Produktfoto */
+  section.held { background: linear-gradient(180deg, var(--creme) 0%, var(--grund) 100%); padding-top: clamp(2rem, 5vw, 4.5rem); }
+  .heldraster { display: grid; gap: 2rem; align-items: center; }
+  .heldbild { margin: 0; }
+  .heldbild img, figure img { width: 100%; height: auto; display: block; border-radius: 14px; box-shadow: 0 10px 30px rgba(11, 42, 60, .18); border: 4px solid #fff; }
+  .heldbild img { max-width: 420px; margin: 0 auto; }
+  .titel { max-width: 46rem; }
+  @media (min-width: 860px) { .heldraster { grid-template-columns: 1.25fr 1fr; } .heldbild img { margin: 0 0 0 auto; } }
+
+  /* Abschnitte: Text, Bild, Karten */
+  .abschnitt { display: grid; gap: 2rem; align-items: center; }
+  .abtext { max-width: 46rem; }
+  .abtext h2::after { content: ""; display: block; width: 3.5rem; height: 4px; background: var(--kupfer); border-radius: 2px; margin-top: .6rem; }
+  figure { margin: 0; }
+  figure img { max-width: 380px; margin: 0 auto; }
+  @media (min-width: 860px) {
+    .abschnitt.mitbild { grid-template-columns: 1.3fr 1fr; gap: 3.5rem; }
+    section:nth-of-type(even) .abschnitt.mitbild figure { order: -1; }
+    section:nth-of-type(even) .abschnitt.mitbild { grid-template-columns: 1fr 1.3fr; }
+  }
+  ul.karten { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1rem; }
+  ul.karten li { background: #fff; border: 1px solid var(--rand); border-top: 4px solid var(--kupfer); border-radius: 10px; padding: 1rem 1.2rem; }
+  ul.karten li b { display: block; color: var(--stark); margin-bottom: .2rem; }
+  section.hell ul.karten li { background: #fff; }
+  @media (min-width: 860px) { .abschnitt:not(.mitbild) .abtext { max-width: none; } .abschnitt:not(.mitbild) ul.karten { grid-template-columns: repeat(3, 1fr); } .abschnitt:not(.mitbild) .abtext > p { max-width: 46rem; } }
+  .abschnitt.mitbild ul.karten { grid-template-columns: 1fr; }
+  ul.liste { margin: .5rem 0 1rem; padding-left: 1.2rem; }
+  ul.liste li { margin-bottom: .4rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="huelle kopf">
+    <div class="markezeile"><img class="logo" src="bilder/logo-pfotenbande.jpg" alt="Logo der Pfotenbande: eine junge Frau und ein Hund sitzen auf einem Hügel vor Bergen, davor das Schild „Pfotenbande, handgefertigt, seit 2024“" width="240" height="240"><div class="marke">Pfotenbande<small><i></i>Lernbereich</small></div></div>
+    <div class="kopfknoepfe">
+      <a class="knopf knopf-rand" href="https://app.plinyoo.com/login">Anmelden</a>
+      <a class="knopf knopf-voll" href="https://app.plinyoo.com/fruehe-mitgestalter?brand=plinyoo">Zugang anfragen</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="held">
+    <div class="huelle heldraster">
+     <div class="titel">
+      <span class="augenbraue">Natürlich Nahrung</span>
+      <h1>Die sind wie wir, nur ein bisschen anders.</h1>
+      <p class="vorspann">Lernkarten rund um die Ernährung des Hundes: kurz, mit Fragen und einer Rückmeldung zu jeder Antwort. Sie erklären, was „Natürlich Nahrung“ für die Pfotenbande bedeutet und warum.</p>
+      <p>Nicht als Kurs mit festen Zeiten, sondern als Wissen, das auf dem Telefon bereitliegt: auf dem Spaziergang, auf dem Sofa, vor dem Einkauf.</p>
+      <div class="knopfreihe">
+        <a class="knopf knopf-voll" href="https://app.plinyoo.com/fruehe-mitgestalter?brand=plinyoo">Zugang anfragen</a>
+        <a class="knopf knopf-rand" href="#fragen">Häufige Fragen</a>
+      </div>
+     </div>
+     <figure class="heldbild"><img src="bilder/snaecki-moehre-heidelbeere.jpg" alt="Packung Snäcki mit Insekt, Möhre und Heidelbeere vor einer Holzwand, davor Möhren, Heidelbeeren und einige Snacks" width="640" height="800"></figure>
+    </div>
+  </section>
+
+  <section id="a1">
+    <div class="huelle abschnitt">
+      <div class="abtext">
+        <span class="augenbraue">Wer hier richtig ist</span>
+        <h2>Für Hundehalter, die wissen wollen, was im Napf liegt</h2>
+        <p>Du musst weder Tierärztin noch Ernährungsberater sein. Du willst einfach verstehen, was dein Hund frisst und warum. Dafür sind die Karten gemacht.</p>
+        <ul class="karten">
+          <li><b>Du willst es richtig machen.</b> Dein Hund gehört zur Familie. Du möchtest wissen, was im Napf landet, statt Werbeversprechen zu glauben.</li>
+          <li><b>Du schaust auf die Zutatenliste.</b> Prozentzahlen und Fachwörter sagen allein wenig. Du lernst, wonach sich zu fragen lohnt.</li>
+          <li><b>Dir ist Tierwohl wichtig.</b> Auch für Hundefutter stammt Protein von Tieren. Du erfährst, wie die Pfotenbande damit umgeht, ohne erhobenen Zeigefinger.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="hell" data-wortlaut="karten-live" id="a2">
+    <div class="huelle abschnitt">
+      <div class="abtext">
+        <span class="augenbraue">Was du hier lernst</span>
+        <h2>Sechs Themen, kurz erklärt</h2>
+        <p>Alles ist in kurze Karten gepackt. Zu jeder Karte gibt es Fragen und eine Rückmeldung zu jeder Antwort, auch zu den falschen.</p>
+        <ul class="liste">
+          <li>Vom Wolf zum Haushund: wie aus Nähe eine gemeinsame Geschichte wurde</li>
+          <li>Kein Wolf im Wohnzimmer: was Anpassung für die Ernährung bedeutet</li>
+          <li>Tierisches Protein, bewusst ausgewählt</li>
+          <li>Getreide, Kartoffeln und die Bedeutung der Zubereitung</li>
+          <li>Ausgewogen ernähren, ohne den Napf zum Rechenblatt zu machen</li>
+          <li>Ganze Zutaten, nachvollziehbare Rezepturen und echtes Handwerk</li>
+        </ul>
+        <p>Die Karten geben die Haltung der Pfotenbande wieder. Eine Beratung durch deine Tierärztin oder deinen Tierarzt ersetzen sie nicht.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-wortlaut="claim-protein" id="a3">
+    <div class="huelle abschnitt mitbild">
+      <div class="abtext">
+        <span class="augenbraue">Verantwortung endet nicht am Napfrand</span>
+        <h2>Protein mit Verantwortung</h2>
+        <p>Die Pfotenbande setzt tierisches Protein aus Insektenlarven, Fisch aus zertifizierten Quellen und Eiern aus möglichst hochwertiger ökologischer Haltung nach Demeter-Standard ein. Fleisch aus industrieller Massentierhaltung kommt nicht in die Rezepturen.</p>
+        <p>Das ist keine Anklage gegen den Fleischkonsum. Die Pfotenbande will niemanden bekehren und niemandem ein schlechtes Gewissen machen. Sie zeigt, dass ausgewogene Hundeernährung auch anders möglich ist.</p>
+      </div>
+      <figure><img src="bilder/snaecki-rote-beete.jpg" alt="Packung Snäcki mit Insekt und Roter Beete, daneben eine aufgeschnittene Rote Beete und einzelne Snacks auf einem Holztisch" width="640" height="800" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section class="hell" id="a4">
+    <div class="huelle abschnitt">
+      <div class="abtext">
+        <span class="augenbraue">So denkt die Pfotenbande</span>
+        <h2>Liebe &amp; Handwerk</h2>
+        <p>Natürlich Nahrung heißt hier nicht roh oder besonders fleischreich. Es heißt: gute, nachvollziehbare Zutaten und eine Verarbeitung, die dem Lebensmittel gerecht wird.</p>
+        <ul class="karten">
+          <li><b>Ganze, erkennbare Zutaten.</b> Die Pfotenbande will wissen, woher ihre Zutaten kommen und wozu sie in der Rezeptur dienen.</li>
+          <li><b>Eigene Rezepturen.</b> Jede Zutat wird danach beurteilt, was sie beiträgt und wie gut sie vertragen wird, nicht nach einer werbewirksamen Fleischquote.</li>
+          <li><b>Schonend hergestellt.</b> So wenig Verarbeitung wie möglich, so viel wie nötig. Die Herstellung bekommt Zeit statt maximalem Druck.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="hell" id="fragen">
+    <div class="huelle fragen">
+      <h2>Häufige Fragen</h2>
+      <details>
+        <summary>Wie komme ich hinein?</summary>
+        <p>Über „Zugang anfragen“ oder mit einer Einladung. Der Zugang ist zunächst auf eingeladene Teilnehmende begrenzt.</p>
+      </details>
+      <details data-wortlaut="app-anleitung">
+        <summary>Muss ich etwas installieren?</summary>
+        <p>Nein. Der Lernbereich läuft im Browser, auf dem Telefon wie am Rechner.</p>
+        <p>Wer möchte, legt den Lernbereich trotzdem wie eine App auf den Startbildschirm. Das geht ohne App-Store (technisch eine „Progressive Web App“, kurz PWA). Dazu zuerst „Anmelden“ öffnen; die Schritte gelten für den Lernbereich, nicht für diese Startseite.</p>
+        <p><b>iPhone und iPad:</b> In Safari auf „Teilen“ tippen (Quadrat mit Pfeil nach oben), „Zum Home-Bildschirm“ wählen und „Hinzufügen“ bestätigen.</p>
+        <p><b>Android:</b> In Chrome auf das Menü (drei Punkte) tippen, „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen und bestätigen.</p>
+        <p>Danach liegt ein Symbol namens „Plinyoo“ auf dem Startbildschirm, und der Lernbereich öffnet sich wie eine App, ohne Adressleiste. Die Namen der Menüpunkte können je nach Gerät und Version etwas anders lauten.</p>
+      </details>
+      <details data-wortlaut="karten-live">
+        <summary>Was lerne ich hier?</summary>
+        <p>Zum Start: Natürlich Nahrung. Wie aus Wölfen Haushunde wurden, was Anpassung für die Ernährung bedeutet, wie die Pfotenbande tierisches Protein auswählt, warum die Zubereitung zählt und wie ihre Rezepturen entstehen. Weitere Themen können folgen.</p>
+      </details>
+      <details data-wortlaut="fachpruefung">
+        <summary>Wer schreibt und prüft die Inhalte?</summary>
+        <p>Die Inhalte stammen aus dem Text „Natürlich Nahrung“ der Pfotenbande und geben deren Haltung wieder. Eine fachliche Prüfung durch eine Fachperson für Tierernährung hat noch nicht stattgefunden.</p>
+      </details>
+      <details data-wortlaut="abstimmen">
+        <summary>Ersetzen die Karten eine Fütterungsberatung?</summary>
+        <p>Nein. Die Karten erklären Haltung und Hintergründe der Pfotenbande. Bei Krankheit, Allergien oder Fragen zum Bedarf deines Hundes berät dich eine Tierärztin oder ein Tierarzt.</p>
+      </details>
+      <details data-wortlaut="datenschutz-pruefen">
+        <summary>Wer sieht meine Antworten?</summary>
+        <p>Niemand außer dem Lernenden sieht die Antworten.</p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="huelle">
+    <p class="traeger">Der Lernbereich der Pfotenbande läuft auf der Lernplattform <a href="https://www.plinyoo.com">plinyoo</a>. Inhalte: Pfotenbande. Betrieb der Plattform, Datenhaltung und Rechtstexte: plinyoo.</p>
+    <div class="fussreihe">
+      <span>Pfotenbande · Lernbereich – betrieben von plinyoo.</span>
+      <nav>
+        <a href="https://www.plinyoo.com/#/impressum">Impressum</a>
+        <a href="https://www.plinyoo.com/#/datenschutz">Datenschutz</a>
+        <a href="https://www.plinyoo.com/#/urheberrecht">Urheberrecht</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
